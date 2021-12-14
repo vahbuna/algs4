@@ -340,7 +340,8 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 
     // make a left-leaning link lean to the right
     private Node rotateRight(Node h) {
-        // assert (h != null) && isRed(h.left);
+        assert (h != null) && isRed(h.left);
+        // assert (h != null) && isRed(h.left) &&  !isRed(h.right);  // for insertion only
         Node x = h.left;
         h.left = x.right;
         x.right = h;
@@ -353,7 +354,8 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 
     // make a right-leaning link lean to the left
     private Node rotateLeft(Node h) {
-        // assert (h != null) && isRed(h.right);
+        assert (h != null) && isRed(h.right);
+        // assert (h != null) && isRed(h.right) && !isRed(h.left);  // for insertion only
         Node x = h.right;
         h.right = x.left;
         x.left = h;
@@ -407,7 +409,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     private Node balance(Node h) {
         // assert (h != null);
 
-        if (isRed(h.right))                      h = rotateLeft(h);
+        if (isRed(h.right) && !isRed(h.left))    h = rotateLeft(h);
         if (isRed(h.left) && isRed(h.left.left)) h = rotateRight(h);
         if (isRed(h.left) && isRed(h.right))     flipColors(h);
 

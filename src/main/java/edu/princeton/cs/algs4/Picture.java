@@ -137,6 +137,7 @@ public final class Picture implements ActionListener {
      */
     public Picture(String name) {
         if (name == null) throw new IllegalArgumentException("constructor argument is null");
+        if (name.length() == 0) throw new IllegalArgumentException("constructor argument is the empty string");
 
         this.filename = name;
         try {
@@ -156,7 +157,7 @@ public final class Picture implements ActionListener {
                     url = getClass().getClassLoader().getResource(name);
                 }
 
-                // or URL from web
+                // or URL from web or jar
                 if (url == null) {
                     url = new URL(name);
                 }
@@ -229,6 +230,10 @@ public final class Picture implements ActionListener {
    /**
      * Displays the picture in a window on the screen.
      */
+
+    // getMenuShortcutKeyMask() deprecated in Java 10 but its replacement
+    // getMenuShortcutKeyMaskEx() is not available in Java 8
+    @SuppressWarnings("deprecation") 
     public void show() {
 
         // create the GUI for viewing the image if needed
@@ -240,7 +245,6 @@ public final class Picture implements ActionListener {
             menuBar.add(menu);
             JMenuItem menuItem1 = new JMenuItem(" Save...   ");
             menuItem1.addActionListener(this);
-            // use getMenuShortcutKeyMaskEx() in Java 10 (getMenuShortcutKeyMask() deprecated)           
             menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                                      Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
             menu.add(menuItem1);
@@ -416,8 +420,22 @@ public final class Picture implements ActionListener {
      */
     public void save(String name) {
         if (name == null) throw new IllegalArgumentException("argument to save() is null");
-        save(new File(name));
-        filename = name;
+  	if (name.length() == 0) throw new IllegalArgumentException("argument to save() is the empty string");
+        File file = new File(name);
+        if (file == null) throw new IllegalArgumentException("could not open file: '" + name + "'");
+        filename = file.getName();
+        String suffix = filename.substring(filename.lastIndexOf('.') + 1);
+        if ("jpg".equalsIgnoreCase(suffix) || "png".equalsIgnoreCase(suffix)) {
+            try {
+                ImageIO.write(image, suffix, file);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("Error: filename must end in '.jpg' or '.png'");
+        }
     }
 
    /**

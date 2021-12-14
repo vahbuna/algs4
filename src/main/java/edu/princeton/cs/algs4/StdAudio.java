@@ -59,7 +59,7 @@ public final class StdAudio {
 
     private static final int BYTES_PER_SAMPLE = 2;       // 16-bit audio
     private static final int BITS_PER_SAMPLE = 16;       // 16-bit audio
-    private static final double MAX_16_BIT = 32768;
+    private static final int MAX_16_BIT = 32768;
     private static final int SAMPLE_BUFFER_SIZE = 4096;
 
     private static final int MONO   = 1;
@@ -129,6 +129,12 @@ public final class StdAudio {
             InputStream is2 = StdAudio.class.getClassLoader().getResourceAsStream(filename);
             if (is2 != null) {
                 return AudioSystem.getAudioInputStream(is2);
+            }
+
+            // from URL (including jar file)
+            URL url = new URL(filename);
+            if (url != null) {
+                return AudioSystem.getAudioInputStream(url);
             }
 
             // give up
@@ -316,7 +322,18 @@ public final class StdAudio {
         }
     }
 
-
+    /**
+     * Plays an audio file (in .wav, .mid, or .au format) in a background thread.
+     *
+     * @param filename the name of the audio file
+     * @throws IllegalArgumentException if unable to play {@code filename}
+     * @throws IllegalArgumentException if {@code filename} is {@code null}
+     * @deprecated replaced by {@link #playInBackground(String filename)}
+     */
+    @Deprecated
+    public static synchronized void play(String filename) {
+        playInBackground(filename);
+    }
 
     /**
      * Plays an audio file (in .wav, .mid, or .au format) in a background thread.
@@ -325,7 +342,7 @@ public final class StdAudio {
      * @throws IllegalArgumentException if unable to play {@code filename}
      * @throws IllegalArgumentException if {@code filename} is {@code null}
      */
-    public static synchronized void play(final String filename) {
+    public static synchronized void playInBackground(final String filename) {
         new Thread(new Runnable() {
             public void run() {
                 AudioInputStream ais = getAudioInputStreamFromFile(filename);
@@ -374,8 +391,20 @@ public final class StdAudio {
      *
      * @param filename the name of the audio file
      * @throws IllegalArgumentException if {@code filename} is {@code null}
+     * @deprecated replaced by {@link #loopInBackground(String filename)}
      */
+    @Deprecated
     public static synchronized void loop(String filename) {
+        loopInBackground(filename);
+    }
+
+    /**
+     * Loops an audio file (in .wav, .mid, or .au format) in a background thread.
+     *
+     * @param filename the name of the audio file
+     * @throws IllegalArgumentException if {@code filename} is {@code null}
+     */
+    public static synchronized void loopInBackground(String filename) {
         if (filename == null) throw new IllegalArgumentException();
 
         final AudioInputStream ais = getAudioInputStreamFromFile(filename);

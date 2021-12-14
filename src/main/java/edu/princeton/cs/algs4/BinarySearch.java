@@ -1,18 +1,18 @@
 /******************************************************************************
  *  Compilation:  javac BinarySearch.java
- *  Execution:    java BinarySearch whitelist.txt < input.txt
+ *  Execution:    java BinarySearch allowlist.txt < input.txt
  *  Dependencies: In.java StdIn.java StdOut.java
- *  Data files:   https://algs4.cs.princeton.edu/11model/tinyW.txt
- *                https://algs4.cs.princeton.edu/11model/tinyT.txt
- *                https://algs4.cs.princeton.edu/11model/largeW.txt
- *                https://algs4.cs.princeton.edu/11model/largeT.txt
+ *  Data files:   https://algs4.cs.princeton.edu/11model/tinyAllowlist.txt
+ *                https://algs4.cs.princeton.edu/11model/tinyText.txt
+ *                https://algs4.cs.princeton.edu/11model/largeAllowlist.txt
+ *                https://algs4.cs.princeton.edu/11model/largeText.txt
  *
- *  % java BinarySearch tinyW.txt < tinyT.txt
+ *  % java BinarySearch tinyAllowlist.txt < tinyText.txt
  *  50
  *  99
  *  13
  *
- *  % java BinarySearch largeW.txt < largeT.txt | more
+ *  % java BinarySearch largeAllowlist.txt < largeText.txt | more
  *  499569
  *  984875
  *  295754
@@ -82,7 +82,7 @@ public class BinarySearch {
     }
 
     /**
-     * Reads in a sequence of integers from the whitelist file, specified as
+     * Reads in a sequence of integers from the allowlist file, specified as
      * a command-line argument; reads in integers from standard input;
      * prints to standard output those integers that do <em>not</em> appear in the file.
      *
@@ -92,15 +92,15 @@ public class BinarySearch {
 
         // read the integers from a file
         In in = new In(args[0]);
-        int[] whitelist = in.readAllInts();
+        int[] allowlist = in.readAllInts();
 
         // sort the array
-        Arrays.sort(whitelist);
+        Arrays.sort(allowlist);
 
-        // read integer key from standard input; print if not in whitelist
+        // read integer key from standard input; print if not in allowlist
         while (!StdIn.isEmpty()) {
             int key = StdIn.readInt();
-            if (BinarySearch.indexOf(whitelist, key) == -1)
+            if (BinarySearch.indexOf(allowlist, key) == -1)
                 StdOut.println(key);
         }
     }

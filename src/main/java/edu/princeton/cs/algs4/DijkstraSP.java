@@ -7,7 +7,7 @@
  *                https://algs4.cs.princeton.edu/44sp/largeEWD.txt
  *
  *  Dijkstra's algorithm. Computes the shortest path tree.
- *  Assumes all weights are nonnegative.
+ *  Assumes all weights are non-negative.
  *
  *  % java DijkstraSP tinyEWD.txt 0
  *  0 to 0 (0.00)  
@@ -35,7 +35,7 @@ package edu.princeton.cs.algs4;
 /**
  *  The {@code DijkstraSP} class represents a data type for solving the
  *  single-source shortest paths problem in edge-weighted digraphs
- *  where the edge weights are nonnegative.
+ *  where the edge weights are non-negative.
  *  <p>
  *  This implementation uses <em>Dijkstra's algorithm</em> with a
  *  <em>binary heap</em>. The constructor takes
@@ -44,6 +44,14 @@ package edu.princeton.cs.algs4;
  *  the number of edges. Each instance method takes &Theta;(1) time.
  *  It uses &Theta;(<em>V</em>) extra space (not including the
  *  edge-weighted digraph).
+ *  <p>
+ *  This correctly computes shortest paths if all arithmetic performed is
+ *  without floating-point rounding error or arithmetic overflow.
+ *  This is the case if all edge weights are integers and if none of the
+ *  intermediate results exceeds 2<sup>52</sup>. Since all intermediate
+ *  results are sums of edge weights, they are bounded by <em>V C</em>,
+ *  where <em>V</em> is the number of vertices and <em>C</em> is the maximum
+ *  weight of any edge.
  *  <p>
  *  For additional documentation,    
  *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
@@ -154,7 +162,7 @@ public class DijkstraSP {
     // (ii) for all edge e on the SPT: distTo[e.to()] == distTo[e.from()] + e.weight()
     private boolean check(EdgeWeightedDigraph G, int s) {
 
-        // check that edge weights are nonnegative
+        // check that edge weights are non-negative
         for (DirectedEdge e : G.edges()) {
             if (e.weight() < 0) {
                 System.err.println("negative edge weight detected");

@@ -39,12 +39,20 @@ package edu.princeton.cs.algs4;
  *  <p>
  *  This implementation uses a queue-based implementation of 
  *  the Bellman-Ford-Moore algorithm.
- *  The constructor takes &Theta;(<em>V</em> (<em>V</em> + <em>E</em>)) time
+ *  The constructor takes &Theta;(<em>E</em> <em>V</em>) time
  *  in the worst case, where <em>V</em> is the number of vertices and
  *  <em>E</em> is the number of edges. In practice, it performs much better.
  *  Each instance method takes &Theta;(1) time.
  *  It uses &Theta;(<em>V</em>) extra space (not including the
  *  edge-weighted digraph).
+ *  <p>
+ *  This correctly computes shortest paths if all arithmetic performed is
+ *  without floating-point rounding error or arithmetic overflow.
+ *  This is the case if all edge weights are integers and if none of the
+ *  intermediate results exceeds 2<sup>52</sup>. Since all intermediate
+ *  results are sums of edge weights, they are bounded by <em>V C</em>,
+ *  where <em>V</em> is the number of vertices and <em>C</em> is the maximum
+ *  absolute value of any edge weight.
  *  <p>
  *  For additional documentation,    
  *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
@@ -54,6 +62,9 @@ package edu.princeton.cs.algs4;
  *  @author Kevin Wayne
  */
 public class BellmanFordSP {
+    // for floating-point precision issues
+    private static final double EPSILON = 1E-14;
+
     private double[] distTo;               // distTo[v] = distance  of shortest s->v path
     private DirectedEdge[] edgeTo;         // edgeTo[v] = last edge on shortest s->v path
     private boolean[] onQueue;             // onQueue[v] = is v currently on the queue?
@@ -93,7 +104,7 @@ public class BellmanFordSP {
     private void relax(EdgeWeightedDigraph G, int v) {
         for (DirectedEdge e : G.adj(v)) {
             int w = e.to();
-            if (distTo[w] > distTo[v] + e.weight()) {
+            if (distTo[w] > distTo[v] + e.weight() + EPSILON) {
                 distTo[w] = distTo[v] + e.weight();
                 edgeTo[w] = e;
                 if (!onQueue[w]) {

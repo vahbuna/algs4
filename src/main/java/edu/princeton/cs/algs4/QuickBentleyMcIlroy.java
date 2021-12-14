@@ -10,7 +10,7 @@
  *  and cuts off to insertion sort.
  *
  *  Reference: Engineering a Sort Function by Jon L. Bentley
- *  and M. Douglas McIlroy. Softwae-Practice and Experience,
+ *  and M. Douglas McIlroy. Software-Practice and Experience,
  *  Vol. 23 (11), 1249-1265 (November 1993).
  *
  ******************************************************************************/
@@ -22,9 +22,9 @@ package edu.princeton.cs.algs4;
  *  an array using an optimized version of quicksort (using Bentley-McIlroy
  *  3-way partitioning, Tukey's ninther, and cutoff to insertion sort).
  *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/23quick">Section 2.3</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ *  For additional documentation, see
+ *  <a href="https://algs4.cs.princeton.edu/23quicksort">Section 2.3</a>   
+ *  of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne

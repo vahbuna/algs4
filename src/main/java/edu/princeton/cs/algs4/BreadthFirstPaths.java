@@ -162,7 +162,8 @@ public class BreadthFirstPaths {
      * Returns the number of edges in a shortest path between the source vertex {@code s}
      * (or sources) and vertex {@code v}?
      * @param v the vertex
-     * @return the number of edges in a shortest path
+     * @return the number of edges in such a shortest path
+     *         (or {@code Integer.MAX_VALUE} if there is no such path)
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public int distTo(int v) {
@@ -240,16 +241,23 @@ public class BreadthFirstPaths {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
     }
 
-    // throw an IllegalArgumentException unless {@code 0 <= v < V}
+    // throw an IllegalArgumentException if vertices is null, has zero vertices,
+    // or has a vertex not between 0 and V-1
     private void validateVertices(Iterable<Integer> vertices) {
         if (vertices == null) {
             throw new IllegalArgumentException("argument is null");
         }
+        int V = marked.length;
+        int count = 0;
         for (Integer v : vertices) {
+            count++;
             if (v == null) {
                 throw new IllegalArgumentException("vertex is null");
             }
             validateVertex(v);
+        }
+        if (count == 0) {
+            throw new IllegalArgumentException("zero vertices");
         }
     }
 

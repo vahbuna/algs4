@@ -140,7 +140,7 @@ public class MinPQ<Key> implements Iterable<Key> {
         return pq[1];
     }
 
-    // helper function to double the size of the heap array
+    // resize the underlying array to have the given capacity
     private void resize(int capacity) {
         assert capacity > n;
         Key[] temp = (Key[]) new Object[capacity];
@@ -176,7 +176,7 @@ public class MinPQ<Key> implements Iterable<Key> {
         Key min = pq[1];
         exch(1, n--);
         sink(1);
-        pq[n+1] = null;     // to avoid loiterig and help with garbage collection
+        pq[n+1] = null;     // to avoid loitering and help with garbage collection
         if ((n > 0) && (n == (pq.length - 1) / 4)) resize(pq.length / 2);
         assert isMinHeap();
         return min;
