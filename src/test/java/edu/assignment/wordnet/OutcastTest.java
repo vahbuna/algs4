@@ -1,19 +1,20 @@
 
 package edu.assignment.wordnet;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import edu.princeton.cs.algs4.In;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 /**
  *
  * @author vahbuna
  */
-public class OutcastTest {
+class OutcastTest {
 
     @Test
-    public void testOutcast() {
+    void testOutcast() {
         WordNet wordnet = new WordNet("data/wordnet/synsets.txt",
         "data/wordnet/hypernyms.txt");
 

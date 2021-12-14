@@ -4,25 +4,26 @@ package edu.assignment;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  *
  * @author vahbuna
  */
-public class RandomizedQueueTest {
+class RandomizedQueueTest {
     private RandomizedQueue<Integer> queue;
 
-    @Before
-    public void setUp() {
+    @BeforeAll
+    void setUp() {
         queue = new RandomizedQueue<Integer>();
     }
 
     @Test
-    public void testIterator() {
+    void testIterator() {
         queue.enqueue(3);
         queue.enqueue(13);
         queue.enqueue(31);
@@ -40,13 +41,13 @@ public class RandomizedQueueTest {
         }
     }
 
-    @Test(expected = NoSuchElementException.class)
-    public void testSample() {
-        queue.sample();
+    @Test
+    void testSample() {
+        assertThrows(IllegalArgumentException.class, () -> {queue.sample();});
     }
 
     @Test
-    public void enQdQs() {
+    void enQdQs() {
         queue.enqueue(3);
         queue.enqueue(13);
         queue.enqueue(31);

@@ -2,55 +2,54 @@
 package edu.assignment.puzzle;
 
 import java.util.ArrayList;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
  * @author vahbuna
  */
-public class BoardTest {
+class BoardTest {
 
     @Test
-    public void dimensionTest() {
+    void dimensionTest() {
         Board ten =
                 new Board(PuzzleChecker.readFile("data/puzzle/puzzle00.txt"));
         assertEquals(10, ten.dimension());
     }
 
     @Test
-    public void solutionTest() {
+    void solutionTest() {
         Board ten =
                 new Board(PuzzleChecker.readFile("data/puzzle/puzzle00.txt"));
         assertTrue(ten.isGoal());
     }
 
     @Test
-    public void hammingTest() {
+    void hammingTest() {
         Board three = new Board(PuzzleChecker.
                 readFile("data/puzzle/puzzle3x3-01.txt"));
         assertEquals(1, three.hamming());
     }
 
     @Test
-    public void manhattanTest() {
+    void manhattanTest() {
         Board three = new Board(PuzzleChecker.
                 readFile("data/puzzle/puzzle3x3-01.txt"));
         assertEquals(1, three.manhattan());
     }
 
     @Test
-    public void twinTest() {
+    void twinTest() {
         Board three = new Board(PuzzleChecker.
                 readFile("data/puzzle/puzzle3x3-01.txt"));
         Board twinThree = three.twin();
-        assertFalse(three.equals(twinThree));
+        assertNotEquals(three, twinThree);
     }
 
     @Test
-    public void neighboursTest() {
+    void neighboursTest() {
         Board three = new Board(PuzzleChecker.
                 readFile("data/puzzle/puzzle3x3-01.txt"));
         ArrayList<Board> boards = new ArrayList<Board>();

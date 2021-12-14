@@ -7,44 +7,54 @@
 package edu.assignment.collinear;
 
 import edu.princeton.cs.algs4.In;
-import org.junit.Test;
-import static org.junit.Assert.*;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  *
  * @author vahbuna
  */
-public class FastCollinearPointsTest {
+class FastCollinearPointsTest {
 
-    @Test(expected = IllegalArgumentException.class)
-    public void nullList() {
-        FastCollinearPoints temp = new FastCollinearPoints(null);
+    @Test
+    void nullList() {
+        assertThrows(IllegalArgumentException.class, () -> {new FastCollinearPoints(null);});
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void nullPoint() {
+    @Test
+    void nullPoint() {
         Point one = new Point(3, 4);
         Point[] points = new Point[2];
         points[0] = one;
         points[1] = null;
-        FastCollinearPoints temp = new FastCollinearPoints(points);
+        assertThrows(IllegalArgumentException.class, () -> {new FastCollinearPoints(points);});
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void duplicatePoints() {
+    @Test
+    void duplicatePoints() {
         Point one = new Point(3, 4);
         Point two = new Point(3, 4);
         Point[] points = new Point[2];
         points[0] = one;
         points[1] = two;
-        FastCollinearPoints temp = new FastCollinearPoints(points);
+        assertThrows(IllegalArgumentException.class, () -> {new FastCollinearPoints(points);});
     }
 
-    @Test
-    public void sixInputs() {
-        In in = new In("data/collinear/input6.txt");
+    @ParameterizedTest
+    @CsvSource(
+            { "6, 1, data/collinear/input6.txt",
+              "8, 2, data/collinear/input8.txt",
+              "15, 4, data/collinear/equidistant.txt"
+            })
+    void variousInputs(int count, int numSeq, String file) {
+        In in = new In(file);
         int n = in.readInt();
-        assertEquals(6, n);
+        assertEquals(count, n);
         Point[] points = new Point[n];
         int i = 0;
         while (!in.isEmpty()) {
@@ -53,49 +63,11 @@ public class FastCollinearPointsTest {
             points[i++] = new Point(p, q);
         }
         FastCollinearPoints temp = new FastCollinearPoints(points);
-        assertEquals(1, temp.numberOfSegments());
+        assertEquals(numSeq, temp.numberOfSegments());
     }
 
     @Test
-    public void eightInputs() {
-        In in = new In("data/collinear/input8.txt");
-        int n = in.readInt();
-        assertEquals(8, n);
-        Point[] points = new Point[n];
-        int i = 0;
-        while (!in.isEmpty()) {
-            int p = in.readInt();
-            int q = in.readInt();
-            points[i++] = new Point(p, q);
-        }
-
-        FastCollinearPoints temp = new FastCollinearPoints(points);
-        assertEquals(2, temp.numberOfSegments());
-    }
-
-    @Test
-    public void equiDistInputs() {
-        In in = new In("data/collinear/equidistant.txt");
-        int n = in.readInt();
-        assertEquals(15, n);
-        Point[] points = new Point[n];
-        int i = 0;
-        while (!in.isEmpty()) {
-            int p = in.readInt();
-            int q = in.readInt();
-            points[i++] = new Point(p, q);
-        }
-
-        FastCollinearPoints temp = new FastCollinearPoints(points);
-        assertEquals(4, temp.numberOfSegments());
-        //LineSegment[] answer = temp.segments();
-        //for (int j = 0; j < answer.length; j++) {
-        //    System.out.println(answer[j].toString());
-        //}
-    }
-
-    @Test
-    public void horizontalInputs() {
+    void horizontalInputs() {
         In in = new In("data/collinear/horizontal5.txt");
         int n = in.readInt();
         assertEquals(20, n);
@@ -116,7 +88,7 @@ public class FastCollinearPointsTest {
     }
 
     @Test
-    public void noLines() {
+    void noLines() {
         In in = new In("data/collinear/random23.txt");
         int n = in.readInt();
         assertEquals(23, n);

@@ -7,21 +7,22 @@ package edu.assignment.kdtree;
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Point2D;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
  * @author vahbuna
  */
-public class KdTreeTest {
+class KdTreeTest {
 
     /**
      * check for empty.
      */
     @Test
-    public void testIsEmpty() {
+    void testIsEmpty() {
         KdTree points = new KdTree();
         assertTrue(points.isEmpty());
     }
@@ -29,14 +30,14 @@ public class KdTreeTest {
     /**
      * test for null exception.
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void testInsertNull() {
+    @Test
+    void testInsertNull() {
         KdTree points = new KdTree();
-        points.insert(null);
+        assertThrows(IllegalArgumentException.class, () -> {points.insert(null);});
     }
 
     @Test
-    public void nearestPointTest() {
+    void nearestPointTest() {
         In in = new In("data/kdtree/circle10.txt");
         KdTree brute = new KdTree();
         while (!in.isEmpty()) {
@@ -51,6 +52,6 @@ public class KdTreeTest {
 
         Point2D answer = brute.nearest(search);
         Point2D expectedAnswer = new Point2D(0.024472, 0.654508);
-        assertTrue(expectedAnswer.equals(answer));
+        assertEquals(expectedAnswer, answer);
     }
 }

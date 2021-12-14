@@ -8,20 +8,21 @@ package edu.assignment.wordnet;
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.In;
 import java.util.ArrayList;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *
  * @author vahbuna
  */
-public class SAPTest {
+class SAPTest {
 
     /**
      * test shortest ancestral path.
      */
     @Test
-    public void testLength() {
+    void testLength() {
         In in = new In("data/wordnet/digraph2.txt");
         Digraph G = new Digraph(in);
         SAP sap = new SAP(G);
@@ -32,7 +33,7 @@ public class SAPTest {
      * find sap among multiple synsets.
      */
     @Test
-    public void testSetLength() {
+    void testSetLength() {
         In in = new In("data/wordnet/digraph25.txt");
         Digraph G = new Digraph(in);
         SAP sap = new SAP(G);
@@ -49,7 +50,7 @@ public class SAPTest {
     }
 
     @Test
-    public void testAncestors() {
+    void testAncestors() {
         In in = new In("data/wordnet/digraph1.txt");
         Digraph G = new Digraph(in);
         SAP sap = new SAP(G);
@@ -61,7 +62,7 @@ public class SAPTest {
     }
 
     @Test
-    public void testAncestor() {
+    void testAncestor() {
         In in = new In("data/wordnet/digraph3.txt");
         Digraph G = new Digraph(in);
         SAP sap = new SAP(G);

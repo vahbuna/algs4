@@ -1,23 +1,24 @@
 package edu.assignment;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *
  * @author vahbuna
  */
-public class DequeTest {
+class DequeTest {
     private Deque<Integer> queue;
 
-    @Before
-    public void setUp() {
+    @BeforeAll
+    void setUp() {
         queue = new Deque<Integer>();
     }
 
     @Test
-    public void addIntegerTests() {
+    void addIntegerTests() {
         assertEquals(0, queue.size());
         queue.addFirst(4);
         queue.addLast(14);
@@ -29,7 +30,7 @@ public class DequeTest {
     }
 
     @Test
-    public void addLastIntegerTests() {
+    void addLastIntegerTests() {
         assertEquals(0, queue.size());
         queue.addLast(4);
         queue.addLast(14);

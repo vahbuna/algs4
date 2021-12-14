@@ -1,24 +1,25 @@
 package edu.assignment;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 import edu.princeton.cs.algs4.In;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  *
  * @author vahbuna
  */
-public class PercolationTest {
+class PercolationTest {
     private Percolation grid;
    
-    @Before
-    public void setUp() {
+    @BeforeAll
+    void setUp() {
         grid = new Percolation(10);
     }
     
     @Test
-    public void openExtremeNodes() {
+    void openExtremeNodes() {
         grid.open(1, 1);
         
         assertTrue(grid.isFull(1, 1));
@@ -31,7 +32,7 @@ public class PercolationTest {
     }  
     
     @Test
-    public void openOneNode() {
+    void openOneNode() {
         grid.open(1, 1);
         grid.open(1, 1);
         assertEquals(1, grid.numberOfOpenSites());
@@ -40,7 +41,7 @@ public class PercolationTest {
     }  
     
     @Test
-    public void percolationTest() {
+    void percolationTest() {
         for(int i=1; i <11; i++) {
             grid.open(i, 1);    
         }
@@ -49,7 +50,7 @@ public class PercolationTest {
     }
     
     @Test
-    public void inputFifty() { 
+    void inputFifty() {
         // following code taken from PercolationVisualizer.java
         In in = new In("data/percolation/input50.txt");      // input file
         int n = in.readInt();         // n-by-n percolation system
@@ -64,7 +65,7 @@ public class PercolationTest {
     }
     
     @Test
-    public void inputTwentyFull() { 
+    void inputTwentyFull() {
         // following code taken from PercolationVisualizer.java
         In in = new In("data/percolation/input20.txt");      // input file
         int n = in.readInt();         // n-by-n percolation system

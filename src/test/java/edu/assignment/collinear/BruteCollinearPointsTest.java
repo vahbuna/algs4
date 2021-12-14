@@ -6,17 +6,19 @@
 package edu.assignment.collinear;
 
 import edu.princeton.cs.algs4.In;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  *
  * @author vahbuna
  */
-public class BruteCollinearPointsTest {
+class BruteCollinearPointsTest {
 
     @Test
-    public void sixInputs() {
+    void sixInputs() {
         In in = new In("data/collinear/input6.txt");
         int n = in.readInt();
         assertEquals(6, n);
@@ -35,27 +37,27 @@ public class BruteCollinearPointsTest {
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void nullList() {
-        BruteCollinearPoints temp = new BruteCollinearPoints(null);
+    @Test
+    void nullList() {
+        assertThrows(IllegalArgumentException.class, () -> {new BruteCollinearPoints(null);});
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void nullPoint() {
+    @Test
+    void nullPoint() {
         Point one = new Point(3, 4);
         Point[] points = new Point[2];
         points[0] = one;
         points[1] = null;
-        BruteCollinearPoints temp = new BruteCollinearPoints(points);
+        assertThrows(IllegalArgumentException.class, () -> {new BruteCollinearPoints(points);});
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void duplicatePoints() {
+    @Test
+    void duplicatePoints() {
         Point one = new Point(3, 4);
         Point two = new Point(3, 4);
         Point[] points = new Point[2];
         points[0] = one;
         points[1] = two;
-        BruteCollinearPoints temp = new BruteCollinearPoints(points);
+        assertThrows(IllegalArgumentException.class, () -> {new BruteCollinearPoints(points);});
     }
 }
